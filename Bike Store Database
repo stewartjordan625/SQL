@@ -1,0 +1,21 @@
+--Create a Bike Store database
+
+CREATE TABLE bikes (id INTEGER , name TEXT , price INTEGER , color TEXT, floor INTEGER);
+INSERT INTO bikes VALUES (1, "Stylish Young Lowrider" , 52.99, "Red" , 2);
+INSERT INTO bikes VALUES (2, "Stylish Young Lowrider" , 54.99, "Blue" , 2);
+INSERT INTO bikes VALUES (3, "Stylish Young Lowrider" , 59.99, "Black" ,2);
+INSERT INTO bikes VALUES (4, "Stylish Young Lowrider" , 55.99, "Pink" , 2);
+INSERT INTO bikes VALUES (5, "Stylish Young Lowrider" , 57.99, "Green" , 2);
+INSERT INTO bikes VALUES (6, "Stylish Adult Lowrider" , 76.99, "Teal" , 1);
+INSERT INTO bikes VALUES (7, "Stylish Adult Lowrider" , 74.99, "Black" , 1);
+INSERT INTO bikes VALUES (8, "Stylish Adult Lowrider" , 73.99, "Burgundy" , 1);
+INSERT INTO bikes VALUES (9, "Stylish Adult Lowrider" , 99.99, "Blue Flames" , 1);
+INSERT INTO bikes VALUES (10, "Stylish Adult Lowrider" , 109.99, "Anime Customization" , 1);
+INSERT INTO bikes VALUES (11, "Young Speedster" , 80.99, "Full Customization" , 2);
+INSERT INTO bikes VALUES (12, "Young Mountain Bike" , 89.99, "Full Customization" , 2);
+INSERT INTO bikes VALUES (13, "Adult Speedster" , 115.99, "Full Customization" , 2);
+INSERT INTO bikes VALUES (14, "Adult Mountain Bike" , 125.99, "Full Customization" , 2);
+INSERT INTO bikes VALUES (15, "Stylish Tandem" , 77.99, "Full Customization" , 1);
+
+SELECT * FROM bikes;
+SELECT * FROM bikes WHERE price > 60 ORDER BY price;
