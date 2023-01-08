@@ -1,0 +1,72 @@
+/*
+Source:
+https://www.kaggle.com/jacobbaruch/nba-player-of-the-week 
+*/
+CREATE TABLE players(
+   Player            TEXT,
+   Team              TEXT,
+   Conference        TEXT,
+   Date              TEXT,
+   Position          TEXT,
+   Height            TEXT,
+   Weight            INTEGER,
+   Age               INTEGER,
+   Draft_Year        INTEGER,
+   Seasons_in_league INTEGER,
+   Season            TEXT,
+   Season_short      INTEGER,
+   Predraft_Team     TEXT,
+   Real_value        REAL,
+   Height_CM         INTEGER,
+   Weight_KG         INTEGER,
+   Last_Season       INTEGER
+);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Norman Powell','Toronto Raptors','East','Mar 9, 2020','SG','6''4',215,26,2015,4,'2019-2020',2020,'UCLA',0.5,193,97,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('LeBron James','Los Angeles Lakers','West','Mar 9, 2020','F','6''8',250,35,2003,16,'2019-2020',2020,'St. Vincent St. Mary High School (Ohio)',0.5,203,113,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Giannis Antetokounmpo','Milwaukee Bucks','East','Mar 2, 2020','F','6''11',242,25,2013,6,'2019-2020',2020,'Filathlitikos Div II Greece (Greece)',0.5,211,109,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Kristaps Porzingis','Dallas Mavericks','West','Mar 2, 2020','FC','7''3',240,24,2015,4,'2019-2020',2020,'Real Betis Energia Plus (Spain)',0.5,221,108,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Jayson Tatum','Boston Celtics','East','Feb 10, 2020','SF','6''8',208,21,2017,2,'2019-2020',2020,'Duke',0.5,203,94,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Nikola Jokic','Denver Nuggets','West','Feb 10, 2020','C','7''0',250,25,2014,4,'2019-2020',2020,'KK Mega Bemax (Serbia)',0.5,213,113,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Jaylen Brown','Boston Celtics','East','Feb 3, 2020','SF','6''7',220,23,2016,3,'2019-2020',2020,'California',0.5,201,99,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Damian Lillard','Portland Trail Blazers','West','Feb 3, 2020','G','6''3',195,29,2012,7,'2019-2020',2020,'Weber State',0.5,190,88,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Pascal Siakam','Toronto Raptors','East','Jan 27, 2020','F','6''9',230,25,2016,3,'2019-2020',2020,'New Mexico State',0.5,206,104,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Damian Lillard','Portland Trail Blazers','West','Jan 27, 2020','G','6''3',195,29,2012,7,'2019-2020',2020,'Weber State',0.5,190,88,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Ben Simmons','Philadelphia Sixers','East','Jan 20, 2020','PF','6''10',230,23,2016,3,'2019-2020',2020,'LSU',0.5,208,104,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Kawhi Leonard','Los Angeles Clippers','West','Jan 20, 2020','F','6''7',230,28,2011,8,'2019-2020',2020,'San Diego State',0.5,201,104,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Josh Richardson','Philadelphia Sixers','East','Jan 13, 2020','G','6''6',200,26,2015,4,'2019-2020',2020,'Tennessee',0.5,198,90,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('DeMar DeRozan','San Antonio Spurs','West','Jan 13, 2020','GF','6''7',220,30,2009,10,'2019-2020',2020,'USC',0.5,201,99,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Giannis Antetokounmpo','Milwaukee Bucks','East','Jan 6, 2020','F','6''11',242,25,2013,6,'2019-2020',2020,'Filathlitikos Div II Greece (Greece)',0.5,211,109,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('LeBron James','Los Angeles Lakers','West','Jan 6, 2020','F','6''8',250,35,2003,16,'2019-2020',2020,'St. Vincent St. Mary High School (Ohio)',0.5,203,113,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Jaylen Brown','Boston Celtics','East','Dec 30, 2019','SF','6''7',220,23,2016,3,'2019-2020',2020,'California',0.5,201,99,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Brandon Ingram','New Orleans Pelicans','West','Dec 30, 2019','SF','6''9',190,22,2016,3,'2019-2020',2020,'Duke',0.5,206,86,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Kyle Lowry','Toronto Raptors','East','Dec 23, 2019','PG','6''1',196,33,2006,13,'2019-2020',2020,'Villanova',0.5,185,88,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Dennis Schroder','Oklahoma City Thunder','West','Dec 23, 2019','PG','6''1',172,26,2013,6,'2019-2020',2020,'Basketball Lowen Braunschweig (Germany)',0.5,185,78,1);
+INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Bam Adebayo','Miami Heat','East','Dec 16, 2019','C','6''10',255,22,2017,2,'2019-2020',2020,'Kentucky',0.5,208,115,1);
+...
+/* DISCLAIMER */
+This data set contains over 1,000 rows of data entries of NBA players
+
+
+
+--Which player has the most seasons in the league? 
+SELECT Player, MAX(Seasons_in_league) FROM players WHERE Seasons_in_league > 10;
+
+--Who is the smallest Forward/Center in the Eastern Conference?
+SELECT Player, Position, Conference, MIN(Weight_KG) FROM players WHERE conference = "East" AND Position = "FC"; 
+
+--What is the average hegight of an Los Angeles Lakers players in CM?
+SELECT ROUND(avg(Height_CM)) AS average_laker_heght_cm FROM players WHERE team = "Los Angeles Lakers"; 
+
+--How many Point Guards have been in the league for more than 5 years in the Western Conference?
+SELECT COUNT(Player) FROM players WHERE Seasons_in_league > 5 AND Position = "PG" AND Conference = "West";
+
+--Classify all Sacramento Kings players by the amount of years they have been in the league.
+SELECT Player, 
+  CASE
+    WHEN Seasons_in_league between 3 AND 7 THEN "Veteran" 
+    WHEN Seasons_in_league > 7 THEN "Seasoned Veteran" 
+    ELSE "Newcomer" 
+  END "career_status"  FROM players WHERE Team = "Sacramento Kings" GROUP BY Player; 
+
+--What is the average weight in kilograms for Forwards or Centers?
+SELECT ROUND(AVG(Weight_KG)) AS forwards_centers_avg_weight FROM players WHERE Postion = "F" OR "C";
