@@ -1,0 +1,22 @@
+CREATE TABLE nbaplayers (id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT, team TEXT, team_id INTEGER, network TEXT, network_id INTEGER);
+
+INSERT INTO nbaplayers VALUES (1, "Lebron", "James", "Los Angeles Lakers",1, "YouTube",1);
+INSERT INTO nbaplayers VALUES (2, "Draymond", "Green", "Golden State Warriors",2, "YouTube",1);
+INSERT INTO nbaplayers VALUES (3, "Richard", "Jefferson", NULL, NULL,"ESPN",2);
+INSERT INTO nbaplayers VALUES (4, "JJ", "Redick", NULL,NULL, "ESPN",2);
+INSERT INTO nbaplayers VALUES (5, "Shaquille", "O'Neal", NULL, NULL, "TNT",3);
+INSERT INTO nbaplayers VALUES (6, "Charles", "Barkley", NULL, NULL, "TNT",3);
+INSERT INTO nbaplayers VALUES (7,"CJ", "McCollum", "New Orleans Pelicans", 3,"ESPN",2);
+INSERT INTO nbaplayers VALUES (8,"Dwayne","Wade",NULL,NULL,"TNT",3);
+INSERT INTO nbaplayers VALUES (9, "Danny","Green","Memphis Grizzlies",4,"ESPN",2);
+
+CREATE TABLE networks (id INTEGER PRIMARY KEY, name TEXT);
+INSERT INTO networks VALUES (1,"YouTube");
+INSERT INTO networks VALUES (2,"ESPN");
+INSERT INTO networks VALUES (3,"TNT");
+
+CREATE TABLE nbateams (id INTEGER PRIMARY KEY, name TEXT);
+INSERT INTO nbateams VALUES (1, "Los Angeles Lakers");
+INSERT INTO nbateams VALUES (2, "Golden State Warriors");
+INSERT INTO nbateams VALUES (3,"New Orleans Pelicans");
+INSERT INTO nbateams VALUES (4,"Memphis Grizzlies");
