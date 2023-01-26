@@ -1,0 +1,6 @@
+SELECT COUNT(orderid) FROM BIT_DB.JanSales WHERE length(orderid)=6 AND orderid <> 'Order ID'
+
+SELECT COUNT(Product) FROM BIT_DB.JanSales WHERE Product = 'iPhone'
+
+SELECT Product,price FROM BIT_DB.JanSales ORDER BY price ASC
+
