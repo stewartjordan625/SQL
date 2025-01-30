@@ -1,0 +1,338 @@
+SELECT * FROM apple_sales_2024;
+
+#Which product generated the highest revenue in 2024, and how does it compare to other products?
+SELECT ROUND(SUM(`iPhone Sales (in million units)`),2) as iPhone_Sales,
+ROUND(SUM(`iPad Sales (in million units)`),2) as iPad_Sales,
+ROUND(SUM(`Mac Sales (in million units)`),2) as Mac_Sales,
+ROUND(SUM(`Wearables (in million units)`),2) as Wearables_Sales
+FROM apple_sales_2024
+; 
+
+#What is the total sales volume (in units) for each product across all regions?
+#Which regions underperformed in Mac sales, and by how much?
+
+SELECT Region,
+ROUND(SUM(`iPhone Sales (in million units)`),2) as iPhone_Sales,
+ROUND(SUM(`iPad Sales (in million units)`),2) as iPad_Sales,
+ROUND(SUM(`Mac Sales (in million units)`),2) as Mac_Sales,
+ROUND(SUM(`Wearables (in million units)`),2) as Wearables_Sales
+FROM apple_sales_2024
+GROUP BY Region
+;
+
+#Which region contributed the most to total revenue, and which contributed the least?
+
+SELECT  
+ROUND(SUM(`iPhone Sales (in million units)`),2) + 
+ROUND(SUM(`iPad Sales (in million units)`),2) +
+ROUND(SUM(`Mac Sales (in million units)`),2) +
+ROUND(SUM(`Wearables (in million units)`),2)  as Total_Sales
+FROM apple_sales_2024 
+;
+
+SELECT DISTINCT Region,  
+SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region) as iPhone_Sales
+FROM apple_sales_2024
+ORDER BY iPhone_Sales DESC
+;
+
+SELECT DISTINCT Region,  
+SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region) as iPad_Sales
+FROM apple_sales_2024
+ORDER BY iPad_Sales DESC
+;
+
+SELECT DISTINCT Region,  
+SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region) as Mac_Sales
+FROM apple_sales_2024
+ORDER BY Mac_Sales DESC
+;
+
+SELECT DISTINCT Region,  
+SUM(`Wearables (in million units)`) OVER(PARTITION BY Region) as Wearables_Sales
+FROM apple_sales_2024
+ORDER BY Wearables_Sales DESC
+;
+
+SELECT DISTINCT Region,
+SUM(`Wearables (in million units)`) OVER(PARTITION BY Region) as Wearables_Sales,
+SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region) as Mac_Sales,
+SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region) as iPad_Sales,
+SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region) as iPhone_Sales
+FROM apple_sales_2024
+;
+
+#What is the average iPhone sales performance (in units) for each region?
+
+SELECT DISTINCT Region,
+AVG(`Wearables (in million units)`) OVER(PARTITION BY Region) as Wearables_Sales,
+AVG(`Mac Sales (in million units)`) OVER(PARTITION BY Region) as Mac_Sales,
+AVG(`iPad Sales (in million units)`) OVER(PARTITION BY Region) as iPad_Sales,
+AVG(`iPhone Sales (in million units)`) OVER(PARTITION BY Region) as iPhone_Sales
+FROM apple_sales_2024
+;
+
+#Which countries or provinces had the lowest Services revenue, and what was the percentage contribution?
+
+SELECT DISTINCT Region, 
+SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region) as Services_Revenue
+FROM apple_sales_2024
+ORDER BY Services_Revenue DESC
+;  
+
+SELECT DISTINCT Region, State, 
+SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY State) as Services_Revenue
+FROM apple_sales_2024
+ORDER BY Services_Revenue DESC
+; 
+
+#Which countries or provinces had Mac sales below 200 million units?
+
+SELECT DISTINCT State,
+SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region) as Mac_Sales
+FROM apple_sales_2024
+ORDER BY Mac_Sales ASC
+;
+
+
+SELECT DISTINCT a.Region, s.Services_Revenue
+FROM apple_sales_2024 a
+JOIN (
+	SELECT DISTINCT Region, 
+	SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region) as Services_Revenue
+	FROM apple_sales_2024 
+	ORDER BY Services_Revenue
+    ) s
+ON a.Region = s.Region
+;
+
+#Which regions had Services revenue below 15%, and what was their total revenue contribution?
+
+SELECT DISTINCT Region,
+SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region) as Services_Revenue,
+SUM(`Services Revenue (in billion $)`) OVER() as Total_Services_Revenue,
+(SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER()) * 100 as Services_Revenue_Percentage
+FROM apple_sales_2024
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) as Mac_Sales,
+SUM(`Mac Sales (in million units)`) OVER() as Total_Mac_Sales,
+(SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Mac Sales (in million units)`) OVER()) * 100 as Mac_Sales_Percentage
+FROM apple_sales_2024
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) as iPhone_Sales,
+SUM(`iPhone Sales (in million units)`) OVER() as Total_iPhone_Sales,
+(SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPhone Sales (in million units)`) OVER()) * 100 as iPhone_Sales_Percentage
+FROM apple_sales_2024
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) as iPad_Sales,
+SUM(`iPad Sales (in million units)`) OVER() as Total_iPad_Sales,
+(SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPad Sales (in million units)`) OVER()) * 100 as iPad_Sales_Percentage
+FROM apple_sales_2024
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) as Wearables_Sales,
+SUM(`Wearables (in million units)`) OVER() as Total_Wearables_Sales,
+(SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Wearables (in million units)`) OVER()) * 100 as Wearables_Sales_Percentage
+FROM apple_sales_2024
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) as Wearables_Sales,
+SUM(`Wearables (in million units)`) OVER() as Total_Wearables_Sales,
+(SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Wearables (in million units)`) OVER()) * 100 as Wearables_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Europe'
+ORDER BY Wearables_Sales_Percentage DESC
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) as iPad_Sales,
+SUM(`iPad Sales (in million units)`) OVER() as Total_iPad_Sales,
+(SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPad Sales (in million units)`) OVER()) * 100 as iPad_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Europe'
+ORDER BY iPad_Sales_Percentage DESC
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) as iPhone_Sales,
+SUM(`iPhone Sales (in million units)`) OVER() as Total_iPhone_Sales,
+(SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPhone Sales (in million units)`) OVER()) * 100 as iPhone_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Europe'
+ORDER BY iPhone_Sales_Percentage DESC
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) as Mac_Sales,
+SUM(`Mac Sales (in million units)`) OVER() as Total_Mac_Sales,
+(SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Mac Sales (in million units)`) OVER()) * 100 as Mac_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Europe'
+ORDER BY Mac_Sales_Percentage DESC
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) as Wearables_Sales,
+SUM(`Wearables (in million units)`) OVER() as Total_Wearables_Sales,
+(SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Wearables (in million units)`) OVER()) * 100 as Wearables_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'North America'
+ORDER BY Wearables_Sales_Percentage DESC
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) as iPad_Sales,
+SUM(`iPad Sales (in million units)`) OVER() as Total_iPad_Sales,
+(SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPad Sales (in million units)`) OVER()) * 100 as iPad_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'North America'
+ORDER BY iPad_Sales_Percentage DESC
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) as iPhone_Sales,
+SUM(`iPhone Sales (in million units)`) OVER() as Total_iPhone_Sales,
+(SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPhone Sales (in million units)`) OVER()) * 100 as iPhone_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'North America'
+ORDER BY iPhone_Sales_Percentage DESC
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) as Mac_Sales,
+SUM(`Mac Sales (in million units)`) OVER() as Total_Mac_Sales,
+(SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Mac Sales (in million units)`) OVER()) * 100 as Mac_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'North America'
+ORDER BY Mac_Sales_Percentage DESC
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) as Wearables_Sales,
+SUM(`Wearables (in million units)`) OVER() as Total_Wearables_Sales,
+(SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Wearables (in million units)`) OVER()) * 100 as Wearables_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Greater China'
+ORDER BY Wearables_Sales_Percentage DESC
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) as iPad_Sales,
+SUM(`iPad Sales (in million units)`) OVER() as Total_iPad_Sales,
+(SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPad Sales (in million units)`) OVER()) * 100 as iPad_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Greater China'
+ORDER BY iPad_Sales_Percentage DESC
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) as iPhone_Sales,
+SUM(`iPhone Sales (in million units)`) OVER() as Total_iPhone_Sales,
+(SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPhone Sales (in million units)`) OVER()) * 100 as iPhone_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Greater China' 
+ORDER BY iPhone_Sales_Percentage DESC 
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) as Mac_Sales,
+SUM(`Mac Sales (in million units)`) OVER() as Total_Mac_Sales,
+(SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Mac Sales (in million units)`) OVER()) * 100 as Mac_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Greater China'
+ORDER BY Mac_Sales_Percentage DESC
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) as Wearables_Sales,
+SUM(`Wearables (in million units)`) OVER() as Total_Wearables_Sales,
+(SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Wearables (in million units)`) OVER()) * 100 as Wearables_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of Asia'
+ORDER BY Wearables_Sales_Percentage DESC
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) as iPad_Sales,
+SUM(`iPad Sales (in million units)`) OVER() as Total_iPad_Sales,
+(SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPad Sales (in million units)`) OVER()) * 100 as iPad_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of Asia'
+ORDER BY iPad_Sales_Percentage DESC 
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) as iPhone_Sales,
+SUM(`iPhone Sales (in million units)`) OVER() as Total_iPhone_Sales,
+(SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPhone Sales (in million units)`) OVER()) * 100 as iPhone_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of Asia'
+ORDER BY iPhone_Sales_Percentage DESC
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) as Mac_Sales,
+SUM(`Mac Sales (in million units)`) OVER() as Total_Mac_Sales,
+(SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Mac Sales (in million units)`) OVER()) * 100 as Mac_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of Asia'
+ORDER BY Mac_Sales_Percentage DESC
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) as Wearables_Sales,
+SUM(`Wearables (in million units)`) OVER() as Total_Wearables_Sales,
+(SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Wearables (in million units)`) OVER()) * 100 as Wearables_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of World'
+ORDER BY Wearables_Sales_Percentage DESC
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) as iPad_Sales,
+SUM(`iPad Sales (in million units)`) OVER() as Total_iPad_Sales,
+(SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPad Sales (in million units)`) OVER()) * 100 as iPad_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of World'
+ORDER BY iPad_Sales_Percentage DESC
+;
+
+SELECT DISTINCT Region, State,
+SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) as iPhone_Sales,
+SUM(`iPhone Sales (in million units)`) OVER() as Total_iPhone_Sales,
+(SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`iPhone Sales (in million units)`) OVER()) * 100 as iPhone_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of World'
+ORDER BY iPhone_Sales_Percentage DESC
+;
+
+
+SELECT DISTINCT Region, State,
+SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) as Mac_Sales,
+SUM(`Mac Sales (in million units)`) OVER() as Total_Mac_Sales,
+(SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Mac Sales (in million units)`) OVER()) * 100 as Mac_Sales_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of World'
+ORDER BY Mac_Sales_Percentage DESC
+;
