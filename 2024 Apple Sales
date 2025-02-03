@@ -81,6 +81,47 @@ ORDER BY Services_Revenue DESC
 ;  
 
 SELECT DISTINCT Region, State, 
+SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Services_Revenue,
+(SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
+FROM apple_sales_2024
+;
+
+SELECT DISTINCT Region, State, 
+SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Services_Revenue,
+(SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Europe'
+;
+
+SELECT DISTINCT Region, State, 
+SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Services_Revenue,
+(SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
+FROM apple_sales_2024
+WHERE Region = 'North America'
+;
+
+SELECT DISTINCT Region, State, 
+SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Services_Revenue,
+(SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Greater China'
+;
+
+SELECT DISTINCT Region, State, 
+SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Services_Revenue,
+(SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of Asia'
+;
+
+SELECT DISTINCT Region, State, 
+SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Services_Revenue,
+(SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
+FROM apple_sales_2024
+WHERE Region = 'Rest of World'
+;
+
+SELECT DISTINCT Region, State, 
 SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY State) as Services_Revenue
 FROM apple_sales_2024
 ORDER BY Services_Revenue DESC
@@ -106,7 +147,7 @@ JOIN (
 ON a.Region = s.Region
 ;
 
-#Which regions had Services revenue below 15%, and what was their total revenue contribution?
+#Which regions had Services revenue below 20%, and what was their total revenue contribution?
 
 SELECT DISTINCT Region,
 SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region) as Services_Revenue,
@@ -115,6 +156,7 @@ SUM(`Services Revenue (in billion $)`) OVER() as Total_Services_Revenue,
 FROM apple_sales_2024
 ;
 
+#What are the sales percentages of each product?
 
 SELECT DISTINCT Region, State,
 SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) as Mac_Sales,
@@ -147,6 +189,7 @@ SUM(`Wearables (in million units)`) OVER() as Total_Wearables_Sales,
 FROM apple_sales_2024
 ;
 
+#What are the unit sales for evry product in every region? 
 
 SELECT DISTINCT Region, State,
 SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) as Wearables_Sales,
@@ -333,6 +376,9 @@ SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) as Mac_Sale
 SUM(`Mac Sales (in million units)`) OVER() as Total_Mac_Sales,
 (SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region, State) * 1.0 / SUM(`Mac Sales (in million units)`) OVER()) * 100 as Mac_Sales_Percentage
 FROM apple_sales_2024
+WHERE Region = 'Rest of World'
+ORDER BY Mac_Sales_Percentage DESC
+;
 WHERE Region = 'Rest of World'
 ORDER BY Mac_Sales_Percentage DESC
 ;
