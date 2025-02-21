@@ -20,8 +20,9 @@ FROM apple_sales_2024
 GROUP BY Region
 ;
 
-#Which region contributed the most to total revenue, and which contributed the least?
+#What were the sales for every product in each region?
 
+#Total Sales of Units
 SELECT  
 ROUND(SUM(`iPhone Sales (in million units)`),2) + 
 ROUND(SUM(`iPad Sales (in million units)`),2) +
@@ -55,14 +56,14 @@ ORDER BY Wearables_Sales DESC
 ;
 
 SELECT DISTINCT Region,
-SUM(`Wearables (in million units)`) OVER(PARTITION BY Region) as Wearables_Sales,
+SUM(`Wearables (in million units)`)OVER(PARTITION BY Region) as Wearables_Sales,
 SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region) as Mac_Sales,
 SUM(`iPad Sales (in million units)`) OVER(PARTITION BY Region) as iPad_Sales,
 SUM(`iPhone Sales (in million units)`) OVER(PARTITION BY Region) as iPhone_Sales
 FROM apple_sales_2024
 ;
 
-#What is the average iPhone sales performance (in units) for each region?
+#What is the average sales performance (in units) for each region?
 
 SELECT DISTINCT Region,
 AVG(`Wearables (in million units)`) OVER(PARTITION BY Region) as Wearables_Sales,
@@ -91,6 +92,7 @@ SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Servi
 (SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
 FROM apple_sales_2024
 WHERE Region = 'Europe'
+ORDER BY Services_Revenue_Percentage DESC
 ;
 
 SELECT DISTINCT Region, State, 
@@ -98,6 +100,7 @@ SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Servi
 (SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
 FROM apple_sales_2024
 WHERE Region = 'North America'
+ORDER BY Services_Revenue_Percentage DESC
 ;
 
 SELECT DISTINCT Region, State, 
@@ -105,6 +108,7 @@ SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Servi
 (SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
 FROM apple_sales_2024
 WHERE Region = 'Greater China'
+ORDER BY Services_Revenue_Percentage DESC
 ;
 
 SELECT DISTINCT Region, State, 
@@ -112,6 +116,7 @@ SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Servi
 (SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
 FROM apple_sales_2024
 WHERE Region = 'Rest of Asia'
+ORDER BY Services_Revenue_Percentage DESC
 ;
 
 SELECT DISTINCT Region, State, 
@@ -119,6 +124,7 @@ SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State) as Servi
 (SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region, State)) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER() * 100 as Services_Revenue_Percentage
 FROM apple_sales_2024
 WHERE Region = 'Rest of World'
+ORDER BY Services_Revenue_Percentage DESC
 ;
 
 SELECT DISTINCT Region, State, 
@@ -129,7 +135,7 @@ ORDER BY Services_Revenue DESC
 
 #Which countries or provinces had Mac sales below 200 million units?
 
-SELECT DISTINCT State,
+SELECT DISTINCT Region,
 SUM(`Mac Sales (in million units)`) OVER(PARTITION BY Region) as Mac_Sales
 FROM apple_sales_2024
 ORDER BY Mac_Sales ASC
@@ -154,6 +160,7 @@ SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region) as Services_Rev
 SUM(`Services Revenue (in billion $)`) OVER() as Total_Services_Revenue,
 (SUM(`Services Revenue (in billion $)`) OVER(PARTITION BY Region) * 1.0 / SUM(`Services Revenue (in billion $)`) OVER()) * 100 as Services_Revenue_Percentage
 FROM apple_sales_2024
+ORDER BY Services_Revenue_Percentage DESC
 ;
 
 #What are the sales percentages of each product?
@@ -189,7 +196,7 @@ SUM(`Wearables (in million units)`) OVER() as Total_Wearables_Sales,
 FROM apple_sales_2024
 ;
 
-#What are the unit sales for evry product in every region? 
+#What are the unit sales percentages for evry product in every region? 
 
 SELECT DISTINCT Region, State,
 SUM(`Wearables (in million units)`) OVER(PARTITION BY Region, State) as Wearables_Sales,
@@ -378,6 +385,7 @@ SUM(`Mac Sales (in million units)`) OVER() as Total_Mac_Sales,
 FROM apple_sales_2024
 WHERE Region = 'Rest of World'
 ORDER BY Mac_Sales_Percentage DESC
+;
 ;
 WHERE Region = 'Rest of World'
 ORDER BY Mac_Sales_Percentage DESC
